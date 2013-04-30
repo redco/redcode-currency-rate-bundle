@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="redcode.currency.rate.class"></parameter>
+        <parameter key="redcode.currency.class"></parameter>
+    </parameters>
+
+    <services>
+
+        <service id="redcode.currency.rate.manager" class="RedCode\Currency\Rate\CurrencyRateManager">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%redcode.currency.rate.class%</argument>
+        </service>
+
+        <service id="redcode.currency.manager" class="RedCode\Currency\CurrencyManager">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%redcode.currency.class%</argument>
+        </service>
+
+        <service id="redcode.currency.rate.converter" class="RedCode\Currency\Rate\CurrencyConverter">
+            <argument type="service" id="redcode.currency.rate.provider.factory" />
+            <argument type="service" id="redcode.currency.rate.manager" />
+        </service>
+
+        <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\ProviderFactory">
+            <argument type="collection">
+                <argument type="service">
+                    <service class="RedCode\Currency\Rate\CbrCurrencyRateProvider">
+                        <argument type="service" id="redcode.currency.rate.manager" />
+                        <argument type="service" id="redcode.currency.manager" />
+                    </service>
+                </argument>
+            </argument>
+        </service>
+
+    </services>
+
+</container>

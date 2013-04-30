@@ -1,0 +1,26 @@
+{
+    "name": "redcode/currency-rate-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 currency rate bundle",
+    "keywords": ["currency", "rate", "converter", "loader", "Symfony2", "bundle"],
+    "homepage": "https://github.com/maZahaca/redcode-currency-rate-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Reddikh",
+            "email": "mazahaco@gmail.com",
+            "homepage": "https://github.com/maZahaca"
+    	}
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.4",
+        "symfony/framework-bundle": ">=2.0,<2.3-dev",
+        "redcode/currency-rate": "dev-dev",
+        "doctrine/doctrine-bundle": "*"
+    },
+    "autoload": {
+        "psr-0": { "RedCode\\CurrencyRateBundle": "" }
+    },
+    "target-dir": "RedCode/CurrencyRateBundle"
+}
