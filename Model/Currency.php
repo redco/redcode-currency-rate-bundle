@@ -6,7 +6,7 @@ use RedCode\Currency\ICurrency;
 /**
  * @author maZahaca
  */
-class Currency implements ICurrency
+abstract class Currency implements ICurrency
 {
     /**
      * @var int

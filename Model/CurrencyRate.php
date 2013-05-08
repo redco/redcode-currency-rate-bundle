@@ -8,7 +8,7 @@ use RedCode\Currency\Rate\Provider\ICurrencyRateProvider;
 /**
  * @author maZahaca
  */
-class CurrencyRate implements ICurrencyRate
+abstract class CurrencyRate implements ICurrencyRate
 {
     /**
      * @var int
@@ -21,7 +21,7 @@ class CurrencyRate implements ICurrencyRate
     protected $date;
 
     /**
-     * @var float
+     * @var int
      */
     protected $nominal;
 
@@ -36,7 +36,7 @@ class CurrencyRate implements ICurrencyRate
     protected $currency;
 
     /**
-     * @var float
+     * @var string
      */
     protected $providerName;
 

@@ -25,7 +25,12 @@ class RedCodeCurrencyRateExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $container->setParameter('redcode.currency.class', $config['currency.class']);
-        $container->setParameter('redcode.currency.rate.class', $config['currency.rate.class']);
+        $container->setParameter('redcode.currency.class', $config['currency_class']);
+        $container->setParameter('redcode.currency.rate.class', $config['currency_rate_class']);
+    }
+
+    public function getNamespace()
+    {
+        return 'redcode_currency_rate';
     }
 }

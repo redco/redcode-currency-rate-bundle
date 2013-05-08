@@ -26,10 +26,10 @@
             <argument type="service" id="redcode.currency.rate.manager" />
         </service>
 
-        <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\ProviderFactory">
+        <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\Provider\ProviderFactory">
             <argument type="collection">
                 <argument type="service">
-                    <service class="RedCode\Currency\Rate\CbrCurrencyRateProvider">
+                    <service class="RedCode\Currency\Rate\Provider\CbrCurrencyRateProvider">
                         <argument type="service" id="redcode.currency.rate.manager" />
                         <argument type="service" id="redcode.currency.manager" />
                     </service>

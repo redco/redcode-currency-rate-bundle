@@ -18,12 +18,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('redcode.currency.rate');
+        $rootNode = $treeBuilder->root('redcode_currency_rate');
 
         $rootNode
             ->children()
-                ->scalarNode('currency.class')->end()
-                ->scalarNode('currency.rate.class')->end()
+                ->scalarNode('currency_class')->end()
+                ->scalarNode('currency_rate_class')->end()
             ->end();
 
         // Here you should define the parameters that are allowed to
