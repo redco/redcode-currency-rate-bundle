@@ -34,6 +34,12 @@
                         <argument type="service" id="redcode.currency.manager" />
                     </service>
                 </argument>
+                <argument type="service">
+                    <service class="RedCode\Currency\Rate\Provider\EcbCurrencyRateProvider">
+                        <argument type="service" id="redcode.currency.rate.manager" />
+                        <argument type="service" id="redcode.currency.manager" />
+                    </service>
+                </argument>
             </argument>
         </service>
 
