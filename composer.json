@@ -15,9 +15,9 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.4",
-        "symfony/framework-bundle": ">=2.0,<2.3-dev",
-        "redcode/currency-rate": "0.1.0-alpha",
-        "doctrine/doctrine-bundle": "*"
+        "doctrine/orm": ">=2.3.2",
+        "doctrine/dbal": ">=2.3.2",
+        "redcode/currency-rate": "0.1.1-alpha"
     },
     "autoload": {
         "psr-0": { "RedCode\\CurrencyRateBundle": "" }
