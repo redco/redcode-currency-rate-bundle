@@ -17,7 +17,7 @@
         "php": ">=5.4.0",
         "doctrine/orm": ">=2.3.2",
         "doctrine/dbal": ">=2.3.2",
-        "redcode/currency-rate": "dev-dev"
+        "redcode/currency-rate": "0.2.*-dev"
     },
     "autoload": {
         "psr-0": { "RedCode\\CurrencyRateBundle": "" }
