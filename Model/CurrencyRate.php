@@ -40,15 +40,6 @@ abstract class CurrencyRate implements ICurrencyRate
      */
     protected $providerName;
 
-    public function __construct(ICurrency $currency, ICurrencyRateProvider $provider, \DateTime $date, $rate, $nominal)
-    {
-        $this->currency     = $currency;
-        $this->providerName = $provider->getName();
-        $this->date         = $date;
-        $this->nominal      = $nominal;
-        $this->rate         = $rate;
-    }
-
     /**
      * @inheritdoc
      */
@@ -88,4 +79,49 @@ abstract class CurrencyRate implements ICurrencyRate
     {
         return $this->providerName;
     }
-}
+
+     /**
+      * @inheritdoc
+      */
+     public function setDate($date)
+     {
+         $this->date = $date;
+         return $this;
+     }
+
+     /**
+      * @inheritdoc
+      */
+     public function setNominal($nominal)
+     {
+         $this->nominal = $nominal;
+         return $this;
+     }
+
+     /**
+      * @inheritdoc
+      */
+     public function setRate($rate)
+     {
+         $this->rate = $rate;
+         return $this;
+     }
+
+     /**
+      * @inheritdoc
+      */
+     public function setCurrency(ICurrency $currency)
+     {
+         $this->currency = $currency;
+         return $this;
+     }
+
+     /**
+      * @inheritdoc
+      */
+     public function setProviderName($provider)
+     {
+         $this->providerName = $provider;
+         return $this;
+     }
+ }

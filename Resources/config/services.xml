@@ -11,12 +11,12 @@
 
     <services>
 
-        <service id="redcode.currency.rate.manager" class="RedCode\Currency\Rate\CurrencyRateManager">
+        <service id="redcode.currency.rate.manager" class="RedCode\CurrencyRateBundle\Manager\CurrencyRateManager">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%redcode.currency.rate.class%</argument>
         </service>
 
-        <service id="redcode.currency.manager" class="RedCode\Currency\CurrencyManager">
+        <service id="redcode.currency.manager" class="RedCode\CurrencyRateBundle\Manager\CurrencyManager">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%redcode.currency.class%</argument>
         </service>
@@ -24,6 +24,7 @@
         <service id="redcode.currency.rate.converter" class="RedCode\Currency\Rate\CurrencyConverter">
             <argument type="service" id="redcode.currency.rate.provider.factory" />
             <argument type="service" id="redcode.currency.rate.manager" />
+            <argument type="service" id="redcode.currency.manager" />
         </service>
 
         <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\Provider\ProviderFactory">

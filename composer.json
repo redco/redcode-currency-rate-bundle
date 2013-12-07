@@ -1,23 +1,23 @@
 {
     "name": "redcode/currency-rate-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony2 currency rate bundle",
-    "keywords": ["currency", "rate", "converter", "loader", "Symfony2", "bundle"],
+    "description": "Symfony2 currency rate bundle, allows convert currencies and load rates via cbr or ecb provider",
+    "keywords": ["currency", "rate", "converter", "loader", "symfony", "bundle", "cbr.ru", "www.ecb.europa.eu"],
     "homepage": "https://github.com/maZahaca/redcode-currency-rate-bundle",
     "license": "MIT",
     "authors": [
         {
             "name": "Andrew Reddikh",
-            "email": "mazahaco@gmail.com",
-            "homepage": "https://github.com/maZahaca"
+            "email": "andrew@reddikh.com",
+            "homepage": "http://reddikh.com"
     	}
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.4",
+        "php": ">=5.4.0",
         "doctrine/orm": ">=2.3.2",
         "doctrine/dbal": ">=2.3.2",
-        "redcode/currency-rate": "0.1.1-alpha"
+        "redcode/currency-rate": "dev-dev"
     },
     "autoload": {
         "psr-0": { "RedCode\\CurrencyRateBundle": "" }
