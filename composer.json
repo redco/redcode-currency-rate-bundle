@@ -12,7 +12,7 @@
             "homepage": "http://reddikh.com"
     	}
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
         "doctrine/orm": ">=2.3.2",
