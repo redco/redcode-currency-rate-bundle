@@ -95,5 +95,5 @@ redcode_currency_rate:
 
 ```php
 $converter = $container->get('redcode.currency.rate.converter');
-$converter->convert('USD', 'EUR', $value);
+$convertedValue = $converter->convert('USD', 'EUR', $value);
 ```
