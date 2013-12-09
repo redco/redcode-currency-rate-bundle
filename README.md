@@ -90,3 +90,10 @@ redcode_currency_rate:
 ```console
 ./app/console redcode:currency:rate:load
 ```
+
+6\. And now, you can call currency rate converter by name - redcode.currency.rate.converter
+
+```php
+$converter = $container->get('redcode.currency.rate.converter');
+$converter->convert('USD', 'EUR', $value);
+```
