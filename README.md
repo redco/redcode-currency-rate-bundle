@@ -1,4 +1,4 @@
-Symfony2 bundle - currency rate laoder
+Symfony2 bundle - currency rate loader
 ============================
 ## Steps to start ##
 1. Install module to your app [from packagist](https://packagist.org/packages/redcode/currency-rate-bundle)
