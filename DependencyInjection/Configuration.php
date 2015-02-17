@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('currency_class')->end()
                 ->scalarNode('currency_rate_class')->end()
+                ->scalarNode('twig_extension')->defaultValue(false)->end()
             ->end();
 
         // Here you should define the parameters that are allowed to
