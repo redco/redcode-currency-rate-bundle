@@ -27,6 +27,11 @@ class RedCodeCurrencyRateExtension extends Extension
 
         $container->setParameter('redcode.currency.class', $config['currency_class']);
         $container->setParameter('redcode.currency.rate.class', $config['currency_rate_class']);
+
+        if($config['twig_extension']) {
+            $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+            $loader->load('twig.xml');
+        }
     }
 
     public function getNamespace()
