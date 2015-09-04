@@ -27,21 +27,18 @@
             <argument type="service" id="redcode.currency.manager" />
         </service>
 
-        <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\Provider\ProviderFactory">
-            <argument type="collection">
-                <argument type="service">
-                    <service class="RedCode\Currency\Rate\Provider\CbrCurrencyRateProvider">
-                        <argument type="service" id="redcode.currency.rate.manager" />
-                        <argument type="service" id="redcode.currency.manager" />
-                    </service>
-                </argument>
-                <argument type="service">
-                    <service class="RedCode\Currency\Rate\Provider\EcbCurrencyRateProvider">
-                        <argument type="service" id="redcode.currency.rate.manager" />
-                        <argument type="service" id="redcode.currency.manager" />
-                    </service>
-                </argument>
-            </argument>
+        <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\Provider\ProviderFactory" />
+
+        <service class="RedCode\Currency\Rate\Provider\CbrCurrencyRateProvider">
+            <argument type="service" id="redcode.currency.rate.manager" />
+            <argument type="service" id="redcode.currency.manager" />
+            <tag name="redcode.currency.rate.provider" />
+        </service>
+
+        <service class="RedCode\Currency\Rate\Provider\EcbCurrencyRateProvider">
+            <argument type="service" id="redcode.currency.rate.manager" />
+            <argument type="service" id="redcode.currency.manager" />
+            <tag name="redcode.currency.rate.provider" />
         </service>
 
     </services>
