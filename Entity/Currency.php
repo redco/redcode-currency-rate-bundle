@@ -8,5 +8,13 @@ use RedCode\CurrencyRateBundle\Model\Currency as BaseCurrency;
  */
 abstract class Currency extends BaseCurrency
 {
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
 
+    public function getId()
+    {
+        return $this->id;
+    }
 }

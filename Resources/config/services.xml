@@ -21,26 +21,29 @@
             <argument>%redcode.currency.class%</argument>
         </service>
 
-        <service id="redcode.currency.rate.converter" class="RedCode\Currency\Rate\CurrencyConverter">
+        <service id="redcode.currency.rate.converter" class="RedCode\CurrencyRateBundle\Converter\CurrencyConverter">
             <argument type="service" id="redcode.currency.rate.provider.factory" />
             <argument type="service" id="redcode.currency.rate.manager" />
             <argument type="service" id="redcode.currency.manager" />
         </service>
 
-        <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\Provider\ProviderFactory" />
+        <service id="redcode.currency.rate.provider_chain" class="RedCode\CurrencyRateBundle\Provider\ProviderChain" />
 
-        <service class="RedCode\Currency\Rate\Provider\CbrCurrencyRateProvider">
+        <service id="redcode.currency.rate.provider.factory" class="RedCode\CurrencyRateBundle\Provider\ProviderFactory">
+            <argument type="service" id="redcode.currency.rate.provider_chain" />
+        </service>
+
+        <service id="redcode.currency.rate.cbr.provider" class="RedCode\Currency\Rate\Provider\CbrCurrencyRateProvider">
             <argument type="service" id="redcode.currency.rate.manager" />
             <argument type="service" id="redcode.currency.manager" />
             <tag name="redcode.currency.rate.provider" />
         </service>
 
-        <service class="RedCode\Currency\Rate\Provider\EcbCurrencyRateProvider">
+        <service id="redcode.currency.rate.ecb.provider" class="RedCode\Currency\Rate\Provider\EcbCurrencyRateProvider">
             <argument type="service" id="redcode.currency.rate.manager" />
             <argument type="service" id="redcode.currency.manager" />
             <tag name="redcode.currency.rate.provider" />
         </service>
-
     </services>
 
 </container>
