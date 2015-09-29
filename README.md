@@ -92,7 +92,7 @@ a\. To create base currencies:
 ./app/console redcode:create:base:currencies
 ```
 
-a\. To create load currency rates:
+b\. To create load currency rates:
 ```console
 ./app/console redcode:currency:rate:load
 ```
