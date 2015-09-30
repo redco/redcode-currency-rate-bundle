@@ -2,8 +2,6 @@
 
 namespace RedCode\CurrencyRateBundle\Command;
 
-use Doctrine\ORM\EntityManager;
-use RedCode\Currency\Rate\CurrencyConverter;
 use RedCode\Currency\Rate\ICurrencyRate;
 use RedCode\Currency\Rate\Provider\ICurrencyRateProvider;
 use RedCode\Currency\Rate\Provider\ProviderFactory;
@@ -18,10 +16,10 @@ use Symfony\Component\Security\Core\Exception\ProviderNotFoundException;
 /**
  * @author maZahaca
  */
-class LoadCurrencyRatesCommand extends ContainerAwareCommand {
-
+class LoadCurrencyRatesCommand extends ContainerAwareCommand
+{
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -34,7 +32,7 @@ class LoadCurrencyRatesCommand extends ContainerAwareCommand {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -44,15 +42,17 @@ class LoadCurrencyRatesCommand extends ContainerAwareCommand {
         $date = new \DateTime($date);
 
         $rates = $this->updateRates($date, $providerName);
-        foreach($rates as $rate) {
+        foreach ($rates as $rate) {
             $output->writeln(sprintf('%s. Loaded rate for %s', $rate->getProviderName(), $rate->getCurrency()->getCode()));
         }
     }
 
     /**
-     * @param \DateTime|null $date
+     * @param \DateTime|null                    $date
      * @param ICurrencyRateProvider|string|null $provider
+     *
      * @throws ProviderNotFoundException
+     *
      * @return ICurrencyRate[]
      */
     public function updateRates($date = null, $provider = null)
@@ -66,28 +66,27 @@ class LoadCurrencyRatesCommand extends ContainerAwareCommand {
         /** @var $providerFactory ProviderFactory */
         $providerFactory = $this->getContainer()->get('redcode.currency.rate.provider.factory');
 
-        if(!$date || !($date instanceof \DateTime)) {
+        if (!$date || !($date instanceof \DateTime)) {
             $date = new \DateTime();
         }
 
-        if($provider && !($provider instanceof ICurrencyRateProvider)) {
-            if(is_string($provider)) {
+        if ($provider && !($provider instanceof ICurrencyRateProvider)) {
+            if (is_string($provider)) {
                 $providerName = $provider;
                 $provider = $providerFactory->get($provider);
-                if(!($provider instanceof ICurrencyRateProvider)) {
+                if (!($provider instanceof ICurrencyRateProvider)) {
                     throw new ProviderNotFoundException("CurrencyRateProvider for name {$providerName} not found");
                 }
-            }
-            else {
-                throw new ProviderNotFoundException("CurrencyRateProvider not found");
+            } else {
+                throw new ProviderNotFoundException('CurrencyRateProvider not found');
             }
         }
 
         $providers = $provider === null ? $providerFactory->getAll() : [$provider];
 
         $resultRates = [];
-        foreach($providers as $provider) {
-            /** @var $provider ICurrencyRateProvider */
+        foreach ($providers as $provider) {
+            /* @var $provider ICurrencyRateProvider */
             $rates = $provider->getRates($currencyManager->getAll(), $date);
             $currencyRateManager->saveRates($rates);
             $resultRates = array_merge($resultRates, $rates);

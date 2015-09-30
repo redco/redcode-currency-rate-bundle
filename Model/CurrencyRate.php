@@ -1,9 +1,9 @@
 <?php
+
 namespace RedCode\CurrencyRateBundle\Model;
 
 use RedCode\Currency\ICurrency;
 use RedCode\Currency\Rate\ICurrencyRate;
-use RedCode\Currency\Rate\Provider\ICurrencyRateProvider;
 
 /**
  * @author maZahaca
@@ -41,7 +41,7 @@ abstract class CurrencyRate implements ICurrencyRate
     protected $providerName;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDate()
     {
@@ -49,7 +49,7 @@ abstract class CurrencyRate implements ICurrencyRate
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNominal()
     {
@@ -57,7 +57,7 @@ abstract class CurrencyRate implements ICurrencyRate
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRate()
     {
@@ -65,7 +65,7 @@ abstract class CurrencyRate implements ICurrencyRate
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrency()
     {
@@ -73,7 +73,7 @@ abstract class CurrencyRate implements ICurrencyRate
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getProviderName()
     {
@@ -81,47 +81,52 @@ abstract class CurrencyRate implements ICurrencyRate
     }
 
      /**
-      * @inheritdoc
+      * {@inheritdoc}
       */
      public function setDate($date)
      {
          $this->date = $date;
+
          return $this;
      }
 
      /**
-      * @inheritdoc
+      * {@inheritdoc}
       */
      public function setNominal($nominal)
      {
          $this->nominal = $nominal;
+
          return $this;
      }
 
      /**
-      * @inheritdoc
+      * {@inheritdoc}
       */
      public function setRate($rate)
      {
          $this->rate = $rate;
+
          return $this;
      }
 
      /**
-      * @inheritdoc
+      * {@inheritdoc}
       */
      public function setCurrency(ICurrency $currency)
      {
          $this->currency = $currency;
+
          return $this;
      }
 
      /**
-      * @inheritdoc
+      * {@inheritdoc}
       */
      public function setProviderName($provider)
      {
          $this->providerName = $provider;
+
          return $this;
      }
- }
+}
