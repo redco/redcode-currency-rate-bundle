@@ -1,4 +1,5 @@
 <?php
+
 namespace RedCode\CurrencyRateBundle\Model;
 
 use RedCode\Currency\ICurrency;
@@ -19,7 +20,8 @@ abstract class Currency implements ICurrency
     protected $code;
 
     /**
-     * Get 3 symbols currency code
+     * Get 3 symbols currency code.
+     *
      * @return string
      */
     public function getCode()

@@ -4,12 +4,9 @@ namespace RedCode\CurrencyRateBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use RedCode\Currency\ICurrency;
-use RedCode\Currency\ICurrencyManager;
-use RedCode\Currency\Rate\Exception\ProviderNotFoundException;
 use RedCode\Currency\Rate\ICurrencyRate;
 use RedCode\Currency\Rate\ICurrencyRateManager;
 use RedCode\Currency\Rate\Provider\ICurrencyRateProvider;
-use RedCode\Currency\Rate\Provider\ProviderFactory;
 
 /**
  * @author maZahaca
@@ -28,9 +25,9 @@ class CurrencyRateManager implements ICurrencyRateManager
 
     public function __construct(EntityManager $em, $currencyRateClassName)
     {
-        $this->em                       = $em;
-        $this->currencyRateClassName    = $currencyRateClassName;
-        if(!$currencyRateClassName || (!$this->em->getMetadataFactory()->hasMetadataFor($currencyRateClassName) && !$this->em->getClassMetadata($currencyRateClassName))) {
+        $this->em = $em;
+        $this->currencyRateClassName = $currencyRateClassName;
+        if (!$currencyRateClassName || (!$this->em->getMetadataFactory()->hasMetadataFor($currencyRateClassName) && !$this->em->getClassMetadata($currencyRateClassName))) {
             throw new \Exception("Class for currency rate \"{$currencyRateClassName}\" not found");
         }
     }
@@ -38,7 +35,7 @@ class CurrencyRateManager implements ICurrencyRateManager
     private static $reflection;
 
     /**
-     * Get reflection class
+     * Get reflection class.
      *
      * @return \ReflectionClass
      */
@@ -48,7 +45,7 @@ class CurrencyRateManager implements ICurrencyRateManager
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getNewInstance(ICurrency $currency, ICurrencyRateProvider $provider, \DateTime $date, $rate, $nominal)
     {
@@ -65,7 +62,7 @@ class CurrencyRateManager implements ICurrencyRateManager
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRate(ICurrency $currency, ICurrencyRateProvider $provider, \DateTime $rateDate = null)
     {
@@ -76,34 +73,34 @@ class CurrencyRateManager implements ICurrencyRateManager
             ->leftJoin('r.currency', 'c')
             ->where($qb->expr()->eq('c.code', ':currency'))
             ->andWhere($qb->expr()->eq('r.providerName', ':provider'))
-            ->setParameters(array('currency'=>$currency->getCode(), 'provider'=>$provider->getName()))
+            ->setParameters(['currency' => $currency->getCode(), 'provider' => $provider->getName()])
             ->orderBy('r.date', 'DESC')
         ;
-        if(isset($rateDate)) {
+        if (isset($rateDate)) {
             $qb
                 ->andWhere($qb->expr()->eq('r.date', ':date'))
                 ->setParameter('date', $rateDate->format('Y-m-d 00:00:00'));
         }
         $result = $qb->getQuery()->getResult();
         $result = reset($result);
-        
+
         return $result;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function saveRates($rates)
     {
-        if(is_array($rates)) {
-            foreach($rates as &$rate) {
-                /** @var ICurrencyRate $rate */
-                $found = $this->em->getRepository($this->currencyRateClassName)->findBy(array(
+        if (is_array($rates)) {
+            foreach ($rates as &$rate) {
+                /* @var ICurrencyRate $rate */
+                $found = $this->em->getRepository($this->currencyRateClassName)->findBy([
                     'date' => $rate->getDate(),
                     'providerName' => $rate->getProviderName(),
-                    'currency' => $rate->getCurrency()->getId()
-                ));
-                if(count($found)) {
+                    'currency' => $rate->getCurrency()->getId(),
+                ]);
+                if (count($found)) {
                     $found = reset($found);
                     $found->setRate($rate->getRate());
                     $found->setNominal($rate->getNominal());

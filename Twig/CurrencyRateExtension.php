@@ -1,11 +1,12 @@
 <?php
+
 namespace RedCode\CurrencyRateBundle\Twig;
 
 use RedCode\Currency\Rate\CurrencyConverter;
 
 /**
  * @author maZahaca
- */ 
+ */
 class CurrencyRateExtension extends \Twig_Extension
 {
     /**
@@ -31,11 +32,10 @@ class CurrencyRateExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             new \Twig_SimpleFunction(
                 'rc_currency_convert',
-                function ($twigOptions, $from, $to, $value, $provider = null)
-                {
+                function ($twigOptions, $from, $to, $value, $provider = null) {
                     return $this->converter->convert(
                         $from,
                         $to,
@@ -44,13 +44,11 @@ class CurrencyRateExtension extends \Twig_Extension
                         false
                     );
                 },
-                array(
+                [
                     'needs_environment' => false,
-                    'needs_context'     => true,
-                )
+                    'needs_context' => true,
+                ]
             ),
-        );
+        ];
     }
-
 }
- 
