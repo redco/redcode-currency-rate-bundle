@@ -1,4 +1,5 @@
 <?php
+
 namespace RedCode\CurrencyRateBundle\Entity;
 
 use RedCode\CurrencyRateBundle\Model\Currency as BaseCurrency;
@@ -8,5 +9,4 @@ use RedCode\CurrencyRateBundle\Model\Currency as BaseCurrency;
  */
 abstract class Currency extends BaseCurrency
 {
-
 }
