@@ -1,4 +1,5 @@
 <?php
+
 namespace RedCode\CurrencyRateBundle\Entity;
 
 use RedCode\CurrencyRateBundle\Model\Currency as BaseCurrency;
