@@ -102,8 +102,3 @@ Contribute
 ----------
 
 Pull requests are welcome. Please see our [CONTRIBUTING](https://github.com/redco/redcode-currency-rate-bundle/blob/master/CONTRIBUTING.md) guide.
-
-
-
-
-
