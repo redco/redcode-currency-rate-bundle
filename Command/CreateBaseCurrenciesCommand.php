@@ -14,7 +14,7 @@ use Doctrine\ORM\OptimisticLockException;
 class CreateBaseCurrenciesCommand extends ContainerAwareCommand
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @throws \InvalidArgumentException
      */
@@ -26,7 +26,7 @@ class CreateBaseCurrenciesCommand extends ContainerAwareCommand
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @throws ServiceCircularReferenceException
      * @throws ServiceNotFoundException

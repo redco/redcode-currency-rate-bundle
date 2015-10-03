@@ -16,7 +16,7 @@ class CurrencyManager implements ICurrencyManager
     private static $baseCurrencies = [
         'AUD', 'AZN', 'GBP', 'AMD', 'BYR', 'BGN', 'BRL', 'HUF', 'DKK', 'USD', 'EUR', 'INR', 'KZT', 'CAD', 'KGS', 'CNY',
         'MDL', 'NOK', 'PLN', 'RON', 'XDR', 'SGD', 'TJS', 'TRY', 'TMT', 'UZS', 'UAH', 'CZK', 'SEK', 'CHF', 'ZAR', 'KRW',
-        'JPY', 'RUB', 'HRK', 'HKD', 'IDR', 'ILS', 'MXN', 'MYR', 'NZD', 'PHP', 'THB'
+        'JPY', 'RUB', 'HRK', 'HKD', 'IDR', 'ILS', 'MXN', 'MYR', 'NZD', 'PHP', 'THB',
     ];
 
     /**
@@ -67,7 +67,7 @@ class CurrencyManager implements ICurrencyManager
                 $currency->setCode($code);
 
                 $this->em->persist($currency);
-                $totalCount++;
+                ++$totalCount;
             }
         }
         $this->em->flush();
