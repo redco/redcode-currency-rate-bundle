@@ -7,9 +7,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Doctrine\ORM\ORMInvalidArgumentException;
-use Doctrine\ORM\OptimisticLockException;
 
 class CreateBaseCurrenciesCommand extends ContainerAwareCommand
 {
@@ -34,24 +31,18 @@ class CreateBaseCurrenciesCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      *
+     * @throws \InvalidArgumentException
      * @throws ServiceCircularReferenceException
      * @throws ServiceNotFoundException
-     * @throws \LogicException
-     * @throws InvalidArgumentException
-     * @throws ORMInvalidArgumentException
-     * @throws OptimisticLockException
-     * @throws \InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $doctrine = $this->getContainer()->get('doctrine');
         $currencyManager = $this->getContainer()->get('redcode.currency.manager');
-        $className = $this->getContainer()->getParameter('redcode.currency.class');
 
         $totalCount = 0;
 
         foreach (self::$baseCurrencies as $code) {
-            if (null === $doctrine->getRepository($className)->findOneBy(['code' => $code])) {
+            if (null === $currencyManager->getCurrency($code)) {
                 $currencyManager->addCurrency($code);
                 ++$totalCount;
             }
