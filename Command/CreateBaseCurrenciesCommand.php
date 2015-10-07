@@ -13,6 +13,12 @@ use Doctrine\ORM\OptimisticLockException;
 
 class CreateBaseCurrenciesCommand extends ContainerAwareCommand
 {
+    private static $baseCurrencies = [
+        'AUD', 'AZN', 'GBP', 'AMD', 'BYR', 'BGN', 'BRL', 'HUF', 'DKK', 'USD', 'EUR', 'INR', 'KZT', 'CAD', 'KGS', 'CNY',
+        'MDL', 'NOK', 'PLN', 'RON', 'XDR', 'SGD', 'TJS', 'TRY', 'TMT', 'UZS', 'UAH', 'CZK', 'SEK', 'CHF', 'ZAR', 'KRW',
+        'JPY', 'RUB', 'HRK', 'HKD', 'IDR', 'ILS', 'MXN', 'MYR', 'NZD', 'PHP', 'THB',
+    ];
+
     /**
      * {@inheritdoc}
      *
@@ -38,7 +44,18 @@ class CreateBaseCurrenciesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $totalCount = $this->getContainer()->get('redcode.currency.manager')->createBaseCurrencies();
+        $doctrine = $this->getContainer()->get('doctrine');
+        $currencyManager = $this->getContainer()->get('redcode.currency.manager');
+        $className = $this->getContainer()->getParameter('redcode.currency.class');
+
+        $totalCount = 0;
+
+        foreach (self::$baseCurrencies as $code) {
+            if (null === $doctrine->getRepository($className)->findOneBy(['code' => $code])) {
+                $currencyManager->addCode($code);
+                ++$totalCount;
+            }
+        }
 
         $output->writeln(sprintf('%s currencies created.', $totalCount));
     }

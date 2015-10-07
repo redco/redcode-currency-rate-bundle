@@ -5,20 +5,12 @@ namespace RedCode\CurrencyRateBundle\Manager;
 use Doctrine\ORM\EntityManager;
 use RedCode\Currency\ICurrencyManager;
 use RedCode\CurrencyRateBundle\Entity\Currency;
-use Doctrine\ORM\ORMInvalidArgumentException;
-use Doctrine\ORM\OptimisticLockException;
 
 /**
  * @author maZahaca
  */
 class CurrencyManager implements ICurrencyManager
 {
-    private static $baseCurrencies = [
-        'AUD', 'AZN', 'GBP', 'AMD', 'BYR', 'BGN', 'BRL', 'HUF', 'DKK', 'USD', 'EUR', 'INR', 'KZT', 'CAD', 'KGS', 'CNY',
-        'MDL', 'NOK', 'PLN', 'RON', 'XDR', 'SGD', 'TJS', 'TRY', 'TMT', 'UZS', 'UAH', 'CZK', 'SEK', 'CHF', 'ZAR', 'KRW',
-        'JPY', 'RUB', 'HRK', 'HKD', 'IDR', 'ILS', 'MXN', 'MYR', 'NZD', 'PHP', 'THB',
-    ];
-
     /**
      * @var \Doctrine\ORM\EntityManager
      */
@@ -51,27 +43,15 @@ class CurrencyManager implements ICurrencyManager
     }
 
     /**
-     * @return int - Count of create currencies
-     *
-     * @throws ORMInvalidArgumentException
-     * @throws OptimisticLockException
+     * @param $code
      */
-    public function createBaseCurrencies()
+    public function addCode($code)
     {
-        $totalCount = 0;
+        /** @var Currency $currency */
+        $currency = new $this->currencyClassName();
+        $currency->setCode($code);
 
-        foreach (self::$baseCurrencies as $code) {
-            if (null === $this->em->getRepository($this->currencyClassName)->findOneBy(['code' => $code])) {
-                /** @var Currency $currency */
-                $currency = new $this->currencyClassName();
-                $currency->setCode($code);
-
-                $this->em->persist($currency);
-                ++$totalCount;
-            }
-        }
+        $this->em->persist($currency);
         $this->em->flush();
-
-        return $totalCount;
     }
 }
