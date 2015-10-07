@@ -52,7 +52,7 @@ class CreateBaseCurrenciesCommand extends ContainerAwareCommand
 
         foreach (self::$baseCurrencies as $code) {
             if (null === $doctrine->getRepository($className)->findOneBy(['code' => $code])) {
-                $currencyManager->addCode($code);
+                $currencyManager->addCurrency($code);
                 ++$totalCount;
             }
         }

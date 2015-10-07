@@ -45,7 +45,7 @@ class CurrencyManager implements ICurrencyManager
     /**
      * @param $code
      */
-    public function addCode($code)
+    public function addCurrency($code)
     {
         /** @var Currency $currency */
         $currency = new $this->currencyClassName();
