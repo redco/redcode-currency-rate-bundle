@@ -4,6 +4,7 @@ namespace RedCode\CurrencyRateBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use RedCode\Currency\ICurrencyManager;
+use RedCode\CurrencyRateBundle\Entity\Currency;
 
 /**
  * @author maZahaca
@@ -39,5 +40,18 @@ class CurrencyManager implements ICurrencyManager
     public function getAll()
     {
         return $this->em->getRepository($this->currencyClassName)->findAll();
+    }
+
+    /**
+     * @param $code
+     */
+    public function addCurrency($code)
+    {
+        /** @var Currency $currency */
+        $currency = new $this->currencyClassName();
+        $currency->setCode($code);
+
+        $this->em->persist($currency);
+        $this->em->flush();
     }
 }

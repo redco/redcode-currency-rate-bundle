@@ -85,8 +85,14 @@ redcode_currency_rate:
     currency_class: NameSpasePath\Currency
 ```
 
-5\. Just run the command and get rates:
+5\. Just run the commands:
 
+a\. To create base currencies:
+```console
+./app/console redcode:create:base:currencies
+```
+
+b\. To create load currency rates:
 ```console
 ./app/console redcode:currency:rate:load
 ```
