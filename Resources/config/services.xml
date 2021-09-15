@@ -29,13 +29,13 @@
 
         <service id="redcode.currency.rate.provider.factory" class="RedCode\Currency\Rate\Provider\ProviderFactory" />
 
-        <service class="RedCode\Currency\Rate\Provider\CbrCurrencyRateProvider">
+        <service id="red_code.currency.rate.provider.cbr_currency_rate_provider" class="RedCode\Currency\Rate\Provider\CbrCurrencyRateProvider">
             <argument type="service" id="redcode.currency.rate.manager" />
             <argument type="service" id="redcode.currency.manager" />
             <tag name="redcode.currency.rate.provider" />
         </service>
 
-        <service class="RedCode\Currency\Rate\Provider\EcbCurrencyRateProvider">
+        <service id="red_code.currency.rate.provider.ecb_currency_rate_provider" class="RedCode\Currency\Rate\Provider\EcbCurrencyRateProvider">
             <argument type="service" id="redcode.currency.rate.manager" />
             <argument type="service" id="redcode.currency.manager" />
             <tag name="redcode.currency.rate.provider" />
