@@ -14,18 +14,18 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.0",
-        "doctrine/orm": ">=2.3.2",
-        "doctrine/dbal": ">=2.3.2",
-        "redcode/currency-rate": "0.2.*"
+        "php": "^7.3",
+        "doctrine/orm": "^2",
+        "doctrine/dbal": "^2",
+        "redcode/currency-rate": "0.2.*",
+        "symfony/symfony": "^4.4"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^4.8",
-        "fabpot/php-cs-fixer": "^1.10",
-        "satooshi/php-coveralls": "^0.6.1"
-    },
+	"require-dev": {
+	  "fabpot/php-cs-fixer": "*"
+	},
     "autoload": {
-        "psr-0": { "RedCode\\CurrencyRateBundle": "" }
-    },
-    "target-dir": "RedCode/CurrencyRateBundle"
+        "psr-4": {
+		    "RedCode\\CurrencyRateBundle\\": ""
+		}
+    }
 }
