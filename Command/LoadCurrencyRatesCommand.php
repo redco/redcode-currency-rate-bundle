@@ -20,9 +20,9 @@ class LoadCurrencyRatesCommand extends Command
 {
     protected static $defaultName = 'redcode:currency:rate:load';
 
-    private CurrencyRateManager $currencyRateManager;
-    private CurrencyManager $currencyManager;
-    private ProviderFactory $providerFactory;
+    protected CurrencyRateManager $currencyRateManager;
+    protected CurrencyManager $currencyManager;
+    protected ProviderFactory $providerFactory;
 
     public function __construct(
         CurrencyRateManager $currencyRateManager,
