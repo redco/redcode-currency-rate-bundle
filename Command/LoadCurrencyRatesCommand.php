@@ -7,7 +7,7 @@ use RedCode\Currency\Rate\Provider\ICurrencyRateProvider;
 use RedCode\Currency\Rate\Provider\ProviderFactory;
 use RedCode\CurrencyRateBundle\Manager\CurrencyManager;
 use RedCode\CurrencyRateBundle\Manager\CurrencyRateManager;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,19 +16,35 @@ use Symfony\Component\Security\Core\Exception\ProviderNotFoundException;
 /**
  * @author maZahaca
  */
-class LoadCurrencyRatesCommand extends ContainerAwareCommand
+class LoadCurrencyRatesCommand extends Command
 {
+    protected static $defaultName = 'redcode:currency:rate:load';
+
+    protected CurrencyRateManager $currencyRateManager;
+    protected CurrencyManager $currencyManager;
+    protected ProviderFactory $providerFactory;
+
+    public function __construct(
+        CurrencyRateManager $currencyRateManager,
+        CurrencyManager $currencyManager,
+        ProviderFactory $providerFactory
+    ) {
+        parent::__construct();
+
+        $this->currencyRateManager = $currencyRateManager;
+        $this->currencyManager = $currencyManager;
+        $this->providerFactory = $providerFactory;
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-                ->setName('redcode:currency:rate:load')
-                ->addArgument('providerName', InputArgument::OPTIONAL, 'Provider name for rates (cbr)', null)
-                ->addArgument('date', InputArgument::OPTIONAL, 'Date for loading rates in format YYYY-MM-DD (default date now)', date('Y-m-d'))
-                ->setDescription('Load currency rates from cbr.ru')
-        ;
+            ->addArgument('providerName', InputArgument::OPTIONAL, 'Provider name for rates (cbr)', null)
+            ->addArgument('date', InputArgument::OPTIONAL, 'Date for loading rates in format YYYY-MM-DD (default date now)', date('Y-m-d'))
+            ->setDescription('Load currency rates from cbr.ru');
     }
 
     /**
@@ -48,24 +64,15 @@ class LoadCurrencyRatesCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param \DateTime|null                    $date
+     * @param \DateTime|null $date
      * @param ICurrencyRateProvider|string|null $provider
      *
+     * @return ICurrencyRate[]
      * @throws ProviderNotFoundException
      *
-     * @return ICurrencyRate[]
      */
     public function updateRates($date = null, $provider = null)
     {
-        /** @var $currencyRateManager CurrencyRateManager */
-        $currencyRateManager = $this->getContainer()->get('redcode.currency.rate.manager');
-
-        /** @var $currencyManager CurrencyManager */
-        $currencyManager = $this->getContainer()->get('redcode.currency.manager');
-
-        /** @var $providerFactory ProviderFactory */
-        $providerFactory = $this->getContainer()->get('redcode.currency.rate.provider.factory');
-
         if (!$date || !($date instanceof \DateTime)) {
             $date = new \DateTime();
         }
@@ -73,7 +80,7 @@ class LoadCurrencyRatesCommand extends ContainerAwareCommand
         if ($provider && !($provider instanceof ICurrencyRateProvider)) {
             if (is_string($provider)) {
                 $providerName = $provider;
-                $provider = $providerFactory->get($provider);
+                $provider = $this->providerFactory->get($provider);
                 if (!($provider instanceof ICurrencyRateProvider)) {
                     throw new ProviderNotFoundException("CurrencyRateProvider for name {$providerName} not found");
                 }
@@ -82,13 +89,13 @@ class LoadCurrencyRatesCommand extends ContainerAwareCommand
             }
         }
 
-        $providers = $provider === null ? $providerFactory->getAll() : [$provider];
+        $providers = $provider === null ? $this->providerFactory->getAll() : [$provider];
 
         $resultRates = [];
         foreach ($providers as $provider) {
             /* @var $provider ICurrencyRateProvider */
-            $rates = $provider->getRates($currencyManager->getAll(), $date);
-            $currencyRateManager->saveRates($rates);
+            $rates = $provider->getRates($this->currencyManager->getAll(), $date);
+            $this->currencyRateManager->saveRates($rates);
             $resultRates = array_merge($resultRates, $rates);
         }
 
