@@ -3,16 +3,15 @@
 namespace RedCode\CurrencyRateBundle\Twig;
 
 use RedCode\Currency\Rate\CurrencyConverter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * @author maZahaca
  */
-class CurrencyRateExtension extends \Twig_Extension
+class CurrencyRateExtension extends AbstractExtension
 {
-    /**
-     * @var CurrencyConverter
-     */
-    private $converter;
+    private CurrencyConverter $converter;
 
     public function __construct(CurrencyConverter $converter)
     {
@@ -22,18 +21,10 @@ class CurrencyRateExtension extends \Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'currency.rate';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new TwigFunction(
                 'rc_currency_convert',
                 function ($twigOptions, $from, $to, $value, $provider = null) {
                     return $this->converter->convert(

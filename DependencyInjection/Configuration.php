@@ -17,8 +17,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('redcode_currency_rate');
+        $treeBuilder = new TreeBuilder('redcode_currency_rate');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
